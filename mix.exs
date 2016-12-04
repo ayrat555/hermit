@@ -27,6 +27,9 @@ defmodule Hermit.Mixfile do
   #
   # Type "mix help deps" for more examples and options
   defp deps do
-    [{:balalaika_bear, git: "https://github.com/ayrat555/balalaika_bear.git"}]
+    [{:balalaika_bear, git: "https://github.com/ayrat555/balalaika_bear.git"},
+     {:nadia, "~> 0.4.2"},
+     {:apex, "~>0.6.0", only: [:dev, :test]},
+     {:credo, "~> 0.5", only: [:dev, :test]}]
   end
 end
