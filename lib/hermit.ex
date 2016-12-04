@@ -1,0 +1,2 @@
+defmodule Hermit do
+end
