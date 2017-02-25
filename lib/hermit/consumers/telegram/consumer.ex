@@ -1,6 +1,6 @@
-defmodule Hermit.SenderServer do
+defmodule Hermit.Consumers.Telegram.Consumer do
   use GenServer
-  alias Hermit.Api.TelegramApi
+  alias Hermit.Consumers.Telegram.API
 
   def start_link(user_id) do
     GenServer.start_link(__MODULE__, {user_id}, name: __MODULE__)
@@ -15,7 +15,7 @@ defmodule Hermit.SenderServer do
   end
 
   def handle_cast({:send_message, message}, {user_id}) do
-    {:ok, _} = TelegramApi.send_message(user_id, message)
+    {:ok, _} = API.send_message(user_id, message)
 
     {:noreply, {user_id}}
   end
@@ -23,7 +23,7 @@ defmodule Hermit.SenderServer do
   def handle_cast({:send_messages, messages}, {user_id}) do
     messages
     |> Enum.each(fn(message) ->
-      {:ok, _} = TelegramApi.send_message(user_id, message)
+      {:ok, _} = API.send_message(user_id, message)
     end)
 
     {:noreply, {user_id}}

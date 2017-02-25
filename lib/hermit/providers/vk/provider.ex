@@ -1,6 +1,6 @@
-defmodule Hermit.UpdatesServer do
+defmodule Hermit.Providers.VK.Provider do
   use GenServer
-  alias Hermit.Api.VkApi
+  alias Hermit.Providers.VK.API
 
   def start_link(token) do
     GenServer.start_link(__MODULE__, {token}, name: __MODULE__)
@@ -11,14 +11,14 @@ defmodule Hermit.UpdatesServer do
   end
 
   def handle_call({:updates}, _from, {token}) do
-    {server, key, ts} = VkApi.long_poll_server_data(token)
-    {ts, updates} = VkApi.long_poll_history(server, key, ts)
+    {server, key, ts} = API.long_poll_server_data(token)
+    {ts, updates} = API.long_poll_history(server, key, ts)
 
     {:reply, updates, {server, key, ts}}
   end
 
   def handle_call({:updates}, _from, {server, key, ts}) do
-    {ts, updates} = VkApi.long_poll_history(server, key, ts)
+    {ts, updates} = API.long_poll_history(server, key, ts)
 
     {:reply, updates, {server, key, ts}}
   end

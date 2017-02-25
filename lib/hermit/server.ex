@@ -1,7 +1,7 @@
 defmodule Hermit.Server do
   use GenServer
-  alias Hermit.UpdatesServer
-  alias Hermit.SenderServer
+  alias Hermit.Consumers.Telegram.Consumer
+  alias Hermit.Providers.VK.Provider
 
   def start_link(listening_period \\ 1000) do
     GenServer.start_link(__MODULE__, listening_period, name: __MODULE__)
@@ -12,8 +12,8 @@ defmodule Hermit.Server do
   end
 
   def handle_cast({:listen}, listening_period) do
-    updates = UpdatesServer.updates
-    unless updates |> Enum.empty?, do: SenderServer.send_messages(updates)
+    updates = Provider.updates
+    unless updates |> Enum.empty?, do: Consumer.send_messages(updates)
 
 
     :timer.sleep(listening_period)

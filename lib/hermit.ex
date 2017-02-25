@@ -1,7 +1,7 @@
 defmodule Hermit do
   use Application
-  alias Hermit.UpdatesServer
-  alias Hermit.SenderServer
+  alias Hermit.Providers.VK.Provider
+  alias Hermit.Consumers.Telegram.Consumer
   alias Hermit.Server
   alias Hermit.Config
 
@@ -9,8 +9,8 @@ defmodule Hermit do
     import Supervisor.Spec, warn: false
 
     children = [
-      worker(UpdatesServer, [Config.vk_access_token]),
-      worker(SenderServer, [Config.telegram_user_id]),
+      worker(Provider, [Config.vk_access_token]),
+      worker(Consumer, [Config.telegram_user_id]),
       worker(Server, [])
     ]
 
