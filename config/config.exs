@@ -8,6 +8,10 @@ config :balalaika_bear,
   app_id: System.get_env("VK_APP_ID"),
   api_key: System.get_env("VK_API_KEY"),
   code_redirect_uri: System.get_env("VK_REDIRECT_URI")
+
+config :hermit,
+  telegram_user_id: System.get_env("TELEGRAM_USER_ID"),
+  vk_access_token: System.get_env("VK_ACCESS_TOKEN")
 # This configuration is loaded before any dependency and is restricted
 # to this project. If another project depends on this project, this
 # file won't be loaded nor affect the parent project. For this reason,
