@@ -1,4 +1,4 @@
-defmodule Hermit.VkApi do
+defmodule Hermit.Api.VkApi do
   alias BalalaikaBear.Messages
 
   def long_poll_history(server, key, ts) do
