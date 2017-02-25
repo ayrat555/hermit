@@ -26,7 +26,7 @@ defmodule Hermit.Api.VkApi do
   end
 
   def get_user_info(user_id) do
-    {:ok, users} =  Users.get(%{user_ids: [user_id]})
+    {:ok, users} = Users.get(%{user_ids: [user_id]})
     users |> Enum.at(0)
   end
 
@@ -36,23 +36,8 @@ defmodule Hermit.Api.VkApi do
     |> Enum.reject(&is_nil(&1))
   end
 
-  defp parse_update([9, user_id, flag]) do
-    %{"first_name" => first_name,
-      "last_name" => last_name} = get_user_info(-user_id)
-    cause = case flag do
-              0 -> "leaving"
-              1 -> "timeout"
-              _ -> "unknown"
-            end
-
-    "#{first_name} #{last_name} went offline by #{cause}"
-  end
-
-  defp parse_update([8, user_id, _extra]) do
-    %{"first_name" => first_name,
-      "last_name" => last_name} = get_user_info(-user_id)
-
-    "#{first_name} #{last_name} went online"
+  defp parse_update([4 | _]) do
+    "You have a new message"
   end
 
   defp parse_update(_params) do
