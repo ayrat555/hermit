@@ -16,7 +16,7 @@ defmodule Hermit do
 
   def handle_cast({:listen}, listening_period) do
     updates = UpdatesServer.updates
-    unless updates |> Enum.empty?, do: SenderServer.send_message("new updates")
+    unless updates |> Enum.empty?, do: SenderServer.send_messages(updates)
 
 
     :timer.sleep(listening_period)
