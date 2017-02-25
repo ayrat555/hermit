@@ -2,7 +2,7 @@
 # and its dependencies with the aid of the Mix.Config module.
 use Mix.Config
 config :nadia,
-  token: System.get_env("BOT_TOKEN")
+  token: System.get_env("TELEGRAM_BOT_TOKEN")
 
 config :balalaika_bear,
   app_id: System.get_env("VK_APP_ID"),

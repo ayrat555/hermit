@@ -1,26 +1,20 @@
 defmodule Hermit do
-  use GenServer
+  use Application
   alias Hermit.UpdatesServer
   alias Hermit.SenderServer
+  alias Hermit.Server
+  alias Hermit.Config
 
-  def start_link(token, user_id, listening_period \\ 1000) do
-    UpdatesServer.start_link(token)
-    SenderServer.start_link(user_id)
+  def start(_type, _args) do
+    import Supervisor.Spec, warn: false
 
-    GenServer.start_link(__MODULE__, listening_period, name: __MODULE__)
-  end
+    children = [
+      worker(UpdatesServer, [Config.vk_access_token]),
+      worker(SenderServer, [Config.telegram_user_id]),
+      worker(Server, [])
+    ]
 
-  def listen do
-    GenServer.cast __MODULE__, {:listen}
-  end
-
-  def handle_cast({:listen}, listening_period) do
-    updates = UpdatesServer.updates
-    unless updates |> Enum.empty?, do: SenderServer.send_messages(updates)
-
-
-    :timer.sleep(listening_period)
-    listen
-    {:noreply, listening_period}
+    opts = [strategy: :one_for_one, name: Hermit.Supervisor]
+    {:ok, _pid} = Supervisor.start_link(children, opts)
   end
 end
