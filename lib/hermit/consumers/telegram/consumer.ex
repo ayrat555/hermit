@@ -6,6 +6,10 @@ defmodule Hermit.Consumers.Telegram.Consumer do
     GenServer.start_link(__MODULE__, {user_id}, name: __MODULE__)
   end
 
+  def stop do
+    GenServer.stop __MODULE__
+  end
+
   def send_message(message) do
     GenServer.cast __MODULE__, {:send_message, message}
   end

@@ -12,14 +12,14 @@ defmodule Hermit.Providers.VK.Provider do
 
   def handle_call({:updates}, _from, {token}) do
     {server, key, ts} = API.long_poll_server_data(token)
-    {ts, updates} = API.long_poll_history(server, key, ts)
+    {ts, update} = API.long_poll_history(server, key, ts)
 
-    {:reply, updates, {server, key, ts}}
+    {:reply, update, {server, key, ts}}
   end
 
   def handle_call({:updates}, _from, {server, key, ts}) do
-    {ts, updates} = API.long_poll_history(server, key, ts)
+    {ts, update} = API.long_poll_history(server, key, ts)
 
-    {:reply, updates, {server, key, ts}}
+    {:reply, update, {server, key, ts}}
   end
 end

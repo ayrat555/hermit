@@ -31,6 +31,7 @@ defmodule Hermit.Mixfile do
     [{:balalaika_bear, git: "https://github.com/ayrat555/balalaika_bear.git"},
      {:nadia, "~> 0.4.2"},
      {:apex, "~>0.6.0", only: [:dev, :test]},
-     {:credo, "~> 0.5", only: [:dev, :test]}]
+     {:credo, "~> 0.5", only: [:dev, :test]},
+     {:mock, "~> 0.2.0", only: :test}]
   end
 end
