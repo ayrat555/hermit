@@ -1,6 +1,6 @@
 # Hermit
 
-Hermit - Telegram bot that forwards social networks notifications
+The main idea of this project is to create extensible tool that helps to connect different services.
 
 ## Installation
 
