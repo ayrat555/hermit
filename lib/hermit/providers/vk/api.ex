@@ -1,4 +1,4 @@
-defmodule Hermit.Providers.VK.API do
+defmodule Hermit.Providers.Vk.API do
   alias BalalaikaBear.Messages
   alias BalalaikaBear.Users
 

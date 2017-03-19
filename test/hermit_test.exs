@@ -1,8 +1,11 @@
 defmodule HermitTest do
   use ExUnit.Case
-  doctest Hermit
+  alias Hermit.Config
 
-  test "the truth" do
-    assert 1 + 1 == 2
+  test "starts supervisor" do
+    provider_params = {:vk, [Config.vk_access_token]}
+    consumer_params = {:telegram, [Config.telegram_user_id]}
+
+    Hermit.start(provider_params, consumer_params)
   end
 end

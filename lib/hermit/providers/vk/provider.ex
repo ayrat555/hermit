@@ -1,13 +1,13 @@
-defmodule Hermit.Providers.VK.Provider do
+defmodule Hermit.Providers.Vk.Provider do
   use GenServer
-  alias Hermit.Providers.VK.API
+  alias Hermit.Providers.Vk.API
 
-  def start_link(token) do
-    GenServer.start_link(__MODULE__, {token}, name: __MODULE__)
+  def start_link(name, token) do
+    GenServer.start_link(__MODULE__, {token}, name: name)
   end
 
-  def updates do
-    GenServer.call __MODULE__, {:updates}
+  def updates(name) do
+    GenServer.call name, {:updates}
   end
 
   def handle_call({:updates}, _from, {token}) do
