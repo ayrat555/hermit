@@ -1,8 +1,8 @@
 defmodule Hermit.Communicator.Supervisor do
   alias Hermit.Communicator.Server
+  use Supervisor
 
-  def start({provider_name, provider_opts}, {consumer_name, consumer_opts}) do
-    import Supervisor.Spec, warn: false
+  def start_link({provider_name, provider_opts}, {consumer_name, consumer_opts}) do
     provider_process_name = random_number
     consumer_process_name = random_number
 
@@ -14,6 +14,10 @@ defmodule Hermit.Communicator.Supervisor do
 
     opts = [strategy: :one_for_one, name: Hermit.Supervisor]
     {:ok, _pid} = Supervisor.start_link(children, opts)
+  end
+
+  def init(provider, consumer, server) do
+    supervise [provider, consumer, server], strategy: :one_for_one
   end
 
   defp provider(provider_name) do

@@ -1,9 +1,10 @@
-defmodule Hermit.Providers.VK.ProviderTest do
+defmodule Hermit.Providers.Vk.ProviderTest do
   use ExUnit.Case, async: true
-  alias Hermit.Providers.VK.Provider
+  alias Hermit.Providers.Vk.Provider
   alias BalalaikaBear.Messages
   import Mock
 
+  @provider_name :test_provider
   @updates [[4, 88, 777]]
 
   test "fetches updates from vk" do
@@ -16,7 +17,9 @@ defmodule Hermit.Providers.VK.ProviderTest do
                            {:ok, %{"ts" => "ts",
                                    "updates" => @updates}}
                          end] do
-      assert Provider.updates == ["You have a new message"]
+      Provider.start_link(@provider_name, "some_token")
+
+      assert Provider.updates(@provider_name) == ["You have a new message"]
     end
   end
 end
