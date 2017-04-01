@@ -1,4 +1,5 @@
 # Hermit
+[![Build Status](https://semaphoreci.com/api/v1/ayrat555/hermit/branches/master/badge.svg)](https://semaphoreci.com/ayrat555/hermit)
 
 The main idea of this project is to create extensible tool that helps to connect different services.
 
